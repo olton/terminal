@@ -1,0 +1,40 @@
+{
+  "name": "@olton/terminal",
+  "version": "0.1.0",
+  "description": "Javascript library for working with a terminal",
+  "main": "dist/terminal.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "shx rm -rf dist/* lib/*",
+    "build": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=production node build.js",
+    "dev": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=development node build.js",
+    "pub": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olton/terminal.git"
+  },
+  "keywords": [
+    "terminal",
+    "javascript",
+    "library"
+  ],
+  "bugs": {
+    "url": "https://github.com/olton/terminal/issues"
+  },
+  "author": "Serhii Pimenov <serhii@pimenov.com.ua> (https://pimenov.com.ua/)",
+  "license": "MIT",
+  "browserslist": [
+    "node 18"
+  ],
+  "devDependencies": {
+    "@olton/esbuild-plugin-progress": "^0.3.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.2",
+    "esbuild-plugin-replace": "^1.4.0",
+    "shx": "^0.4.0"
+  }
+}
