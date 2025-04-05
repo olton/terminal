@@ -72,12 +72,14 @@ You can use `Cursor` class to manipulate the cursor position or visibility in th
 Use fabric method `cursor` to create a new instance of `Cursor`.
 
 ```javascript
-import { term } from '@olton/terminal'
-import { cursor } from '@olton/terminal'
+import { term, cursor } from '@olton/terminal'
+
+const cur = cursor()
+
 console.log(term('Hello World!'))
-cursor.hide()
+cur.hide()
 setTimeout(() => {
-  cursor.show()
+  cur.show()
 }, 2000)
 ```
 
