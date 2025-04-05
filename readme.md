@@ -131,3 +131,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Code Standards
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+---
+
+Copyright (c) 2025 by [Serhii Pimenov](https://pimenov.com.ua)
