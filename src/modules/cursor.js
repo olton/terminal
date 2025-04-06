@@ -1,97 +1,93 @@
 import { CSI, ESC } from './esc.js'
 
-const defaultOptions = {
-  terminal: process.stdout,
-  hide: false
-}
-
-export class Cursor {
-  constructor (options = {}) {
-    this.options = { ...defaultOptions, ...options }
-    this.terminal = this.options.terminal
-    if (this.options.hide) {
-      this.hide()
-    }
-    if (this.options.x || this.options.y) {
-      this.to(this.options.x, this.options.y)
-    }
+export default class Cursor {
+  static terminal = process.stdout
+  
+  static setTerminal (terminal) {
+    this.terminal = terminal
+    return this
   }
-
-  show () {
+  
+  static show () {
     this.terminal.write(CSI + '?25h')
     return this
   }
 
-  hide () {
+  static hide () {
     this.terminal.write(CSI + '?25l')
     return this
   }
 
-  to (x = 0, y = 0) {
+  static to (x = 0, y = 0) {
     this.terminal.write(CSI + `${y};${x}H`)
     return this
   }
 
-  up (n) {
+  static up (n) {
     this.terminal.write(CSI + `${n}A`)
     return this
   }
 
-  down (n) {
+  static down (n) {
     this.terminal.write(CSI + `${n}B`)
     return this
   }
 
-  left (n) {
+  static left (n) {
     this.terminal.write(CSI + `${n}D`)
     return this
   }
 
-  right (n) {
+  static right (n) {
     this.terminal.write(CSI + `${n}C`)
     return this
   }
 
-  lineUp (n) {
+  static lineUp (n) {
     this.terminal.write(ESC + 'M')
     return this
   }
 
-  linesUp (n) {
+  static linesUp (n) {
     this.terminal.write(CSI + `${n}F`)
     return this
   }
 
-  linesDown (n) {
+  static linesDown (n) {
     this.terminal.write(CSI + `${n}E`)
     return this
   }
 
-  save () {
+  static save () {
     this.terminal.write(ESC + '7')
     return this
   }
 
-  restore () {
+  static restore () {
     this.terminal.write(ESC + '8')
     return this
   }
 
-  getPos () {
+  static getPos () {
     return new Promise((resolve, reject) => {
-      this.terminal.write(CSI + '6n')
-      process.stdin.once('data', (data) => {
-        const match = data.toString().match(/\[(\d+);(\d+)R/)
-        if (match) {
-          const x = parseInt(match[2], 10)
-          const y = parseInt(match[1], 10)
-          resolve({ x, y })
-        } else {
-          reject(new Error('Failed to get cursor position'))
-        }
-      })
+      const termcodes = { cursorGetPosition: '\u001b[6n' };
+      const rawMode = process.stdin.isRaw
+
+      process.stdin.setEncoding('utf8');
+      process.stdin.setRawMode(true);
+
+      const readfx = function () {
+        const buf = process.stdin.read();
+        const str = JSON.stringify(buf); // "\u001b[9;1R"
+        const regex = /\[(.*)/g;
+        const xy = regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
+        const pos = { y: xy[0], x: xy[1] };
+        process.stdin.setRawMode(rawMode);
+        resolve(pos);
+      }
+
+      process.stdin.once('readable', readfx);
+      process.stdout.write(termcodes.cursorGetPosition);
     })
   }
 }
-
-export const cursor = (options) => new Cursor(options)

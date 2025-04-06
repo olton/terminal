@@ -2,7 +2,7 @@ import { ESC } from './esc.js'
 
 const terminal = process.stdout
 
-const clearScreen = (term = terminal) => term.write(ESC + '[2J')
+const clearScreen = (term = terminal) => { term.write(process.platform === 'win32' ? '\x1bc' : '\x1b[2J\x1b[0f'); }
 const clearToEndOfLine = (term = terminal) => term.write(ESC + '[0K')
 const clearToBeginOfLine = (term = terminal) => term.write(ESC + '[1K')
 const clearLine = (term = terminal) => term.write(ESC + '[2K')
