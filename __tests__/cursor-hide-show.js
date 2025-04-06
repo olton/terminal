@@ -1,9 +1,7 @@
-import { term, cursor } from '../src/index.js'
-
-const c = cursor()
+import { term, Cursor } from '../src/index.js'
 
 console.log(term('Hello World!'))
-c.hide()
+Cursor.hide()
 setTimeout(() => {
-  c.show()
+  Cursor.show()
 }, 2000)

@@ -27,6 +27,7 @@ import { term } from '@olton/terminal'
 
 console.log(term('Hello World!', { style: 'bold, italic', color: 'redBright' }))
 console.log(term('Hello World!', { style: 'bold, italic', color: '#ffffff' }))
+console.log(term('Hello World!', { style: ['bold', 'italic'], color: ['#ffffff', '#00f'] }))
 console.log(term('Hello World!', { color: '219' }))
 console.log(term('Hello World!', { gradient: '#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff' }))
 process.stdout.write(term('Hello World!', { color: 'yellowBright, #00f' }) + '\n')
@@ -46,27 +47,30 @@ You can set the text style using the `style` option. This is a comma-separated l
 #### Text color
 You can set the text color using the `color` option. This is a comma-separated list of colors where first color is the text color and the second color is the background color. You can use next color values:
 
-**Named colors**:
+**1. Named colors**:
 
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `gray`
 `blackBright`, `redBright`, `greenBright`, `yellowBright`, `blueBright`, `magentaBright`, `cyanBright`, `whiteBright`, `grayBright`
 
-**Hex colors**: 
+**2. Hex colors**: 
 
 `#ff0000`, `#00ff00`, `#00f`, ...
 
-**Color index**: from 0 to 255.
+**3. Color index**: from 0 to 255.
 
 ![](colors-indexes.png)
 
 #### Gradient color
-You can set the gradient color using the `gradient` option. This is a comma-separated list of colors. 
+You can set the gradient color using the `gradient` option. 
+This is a comma-separated list of colors.
+Colors can be in hex format.
 
 ```javascript
 console.log(term('Hello World!', { gradient: "#ff0000, #0000ff" }))
+console.log(term('Hello World!', { gradient: ["#f00", "#00f"] }))
 ```
 
-### Cursor
+## Cursor
 
 You can use `Cursor` class to manipulate the cursor position or visibility in the terminal.
 Use fabric method `cursor` to create a new instance of `Cursor`.
@@ -98,7 +102,7 @@ setTimeout(() => {
 - `linesDown(n)` - move the cursor down `n` lines and save the position
 - `getPos()` - get the current cursor position. This method returns a promise with the position object `{ x, y }`
 
-### Screen
+## Screen
 
 You can use `Screen` class to manipulate the screen in the terminal.
 

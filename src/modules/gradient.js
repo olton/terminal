@@ -4,9 +4,22 @@ import { CSI } from './esc.js'
 
 export class Gradient {
   constructor (colors = ['#ff0000', '#00ff00']) {
-    this.colors = colors.map(color => color.startsWith('#') ? color : `#${color}`)
+    this.colors = colors.map(color => {
+      if (!color.startsWith('#')) {
+        color = `#${color}`
+      } 
+      return this.expandColor(color)
+    })
   }
 
+  expandColor(color){
+    if (color.length === 7) {
+      return color
+    }
+    let expanded_color = `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`
+    return expanded_color.substring(0, 7)
+  }
+  
   /**
    * Створити градієнтний текст
    * @param {string} text - Текст для відображення

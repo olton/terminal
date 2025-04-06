@@ -24,9 +24,9 @@ export class Terminal {
   toString () {
     const r = []
     const { style, color, gradient } = this.options
-    const [fg = 'default', bg = 'bgDefault'] = str2array(color)
-    const styles = str2array(style)
-    const gradientColors = str2array(gradient)
+    const [fg = 'default', bg = 'bgDefault'] = Array.isArray(color) ? color : str2array(color)
+    const styles = Array.isArray(style) ? style : str2array(style)
+    const gradientColors = Array.isArray(gradient) ? gradient : str2array(gradient)
 
     for (const s of styles) {
       if (Styles[s]) r.push(Styles[s])
