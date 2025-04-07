@@ -135,7 +135,7 @@ import { Screen } from '@olton/terminal'
 Screen.clear()
 ```
 
-> [NOTE]
+> [!NOTE]
 > Methods `clearLine`, `clearLeft`, `clearRight`, `clearDown`, `clearUp` not moved a cursor.
 
 ---
