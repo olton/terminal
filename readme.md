@@ -22,13 +22,18 @@ npm install @olton/terminal
 
 ### Terminal output
 
+<div align="center">
+
 ![img.png](output.png)
+
+</div>
+
 
 ```javascript
 import { term } from '@olton/terminal'
 
 console.log(term('Hello World!', { style: 'bold, italic', color: 'redBright' }))
-console.log(term('Hello World!', { style: 'bold, italic', color: '#ffffff' }))
+console.log(term('Hello World!', { color: '#ffffff' }))
 console.log(term('Hello World!', { style: ['bold', 'italic'], color: ['#ffffff', '#00f'] }))
 console.log(term('Hello World!', { color: '219' }))
 console.log(term('Hello World!', { gradient: '#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff' }))
