@@ -6,7 +6,8 @@
 ![NPM Version](https://img.shields.io/npm/v/%40olton%2Fterminal)
 ![Static Badge](https://img.shields.io/badge/dependencies-none-green)
 
-Terminal is a JavaScript library for working with terminal.
+`Terminal` - is a JavaScript library for working with terminal. 
+With `Terminal` you can create colored and styled outputs and manipulate the cursor and screen in the terminal.
 
 </div>
 
