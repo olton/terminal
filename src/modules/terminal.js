@@ -13,7 +13,7 @@ export class Terminal {
     this.options = options
   }
 
-  [Symbol.toPrimitive](hint) {
+  [Symbol.toPrimitive]() {
     if (this.text && this.text.length > 0) {
       return this.toString()
     } else {
@@ -33,16 +33,13 @@ export class Terminal {
     }
 
     if (gradientColors.length > 0) {
-      // Якщо вказані градієнтні кольори, використовуємо їх для тексту
       const gradientObj = new Gradient(gradientColors)
 
-      // Застосовуємо стилі якщо вони є
       let styledPrefix = ''
       if (r.length > 0) {
         styledPrefix = `${CSI}${r.join(';')}m`
       }
 
-      // Якщо є фоновий колір, додаємо його до всіх символів
       let bgCode = ''
       if (bg !== 'bgDefault') {
         bgCode = bg.startsWith('#')
@@ -52,16 +49,13 @@ export class Terminal {
             : Colors.bg(bg)
       }
 
-      // Створюємо градієнтний текст з урахуванням стилів та фону
       if (bgCode) {
         r.push(bgCode)
       }
 
       if (r.length > 0) {
-        // Якщо є стилі або фоновий колір
         return styledPrefix + gradientObj.colorizeWithStyle(this.text, r.join(';'))
       } else {
-        // Якщо тільки градієнт
         return gradientObj.colorize(this.text)
       }
     } else {
@@ -69,8 +63,41 @@ export class Terminal {
       r.push(bg.startsWith('#') ? Colors.fromHex(bg, true) : isNaN(Number(bg)) ? Colors[Colors.toBg(bg)] : Colors.bg(bg))
     }
 
-    const output = [CSI, r.join(';'), 'm', this.text, CSI + '0m']
-    return output.join('')
+    if (typeof this.text === 'string' && this.text.includes(CSI)) {
+      // Створюємо регулярний вираз для пошуку стилізованих фрагментів
+      const styleRegex = new RegExp(`\\x1B\\[[0-9;]+m([\\s\\S]*?)\\x1B\\[0m`, 'g')
+
+      // Розбиваємо текст на стилізовані і нестилізовані частини
+      let result = ''
+      let lastIndex = 0
+      let match
+
+      // Поточний стиль
+      const currentStyle = `${CSI}${r.join(';')}m`
+
+      while ((match = styleRegex.exec(this.text)) !== null) {
+        // Додаємо стиль до нестилізованого тексту перед поточним збігом
+        const textBefore = this.text.substring(lastIndex, match.index)
+        if (textBefore) {
+          result += currentStyle + textBefore + `${CSI}0m`
+        }
+        // Залишаємо стилізований текст без змін
+        result += match[0]
+        lastIndex = match.index + match[0].length
+      }
+
+      // Обробляємо залишок тексту після останнього стилізованого фрагмента
+      const textAfter = this.text.substring(lastIndex)
+      if (textAfter) {
+        result += currentStyle + textAfter + `${CSI}0m`
+      }
+
+      return result
+    } else {
+      const output = [CSI, r.join(';'), 'm', this.text, CSI + '0m']
+      return output.join('')
+    }
+    
   }
 }
 

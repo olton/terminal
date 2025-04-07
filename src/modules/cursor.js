@@ -1,93 +1,42 @@
 import { CSI, ESC } from './esc.js'
 
-export default class Cursor {
-  static terminal = process.stdout
-  
-  static setTerminal (terminal) {
-    this.terminal = terminal
-    return this
-  }
-  
-  static show () {
-    this.terminal.write(CSI + '?25h')
-    return this
-  }
+let terminal = process.stdout
+let input = process.stdin
 
-  static hide () {
-    this.terminal.write(CSI + '?25l')
-    return this
-  }
-
-  static to (x = 0, y = 0) {
-    this.terminal.write(CSI + `${y};${x}H`)
-    return this
-  }
-
-  static up (n) {
-    this.terminal.write(CSI + `${n}A`)
-    return this
-  }
-
-  static down (n) {
-    this.terminal.write(CSI + `${n}B`)
-    return this
-  }
-
-  static left (n) {
-    this.terminal.write(CSI + `${n}D`)
-    return this
-  }
-
-  static right (n) {
-    this.terminal.write(CSI + `${n}C`)
-    return this
-  }
-
-  static lineUp (n) {
-    this.terminal.write(ESC + 'M')
-    return this
-  }
-
-  static linesUp (n) {
-    this.terminal.write(CSI + `${n}F`)
-    return this
-  }
-
-  static linesDown (n) {
-    this.terminal.write(CSI + `${n}E`)
-    return this
-  }
-
-  static save () {
-    this.terminal.write(ESC + '7')
-    return this
-  }
-
-  static restore () {
-    this.terminal.write(ESC + '8')
-    return this
-  }
-
-  static getPos () {
+const Cursor = {
+  show () { terminal.write(CSI + '?25h') },
+  hide () { terminal.write(CSI + '?25l') },
+  to (x = 0, y = 0) { terminal.write(CSI + `${y};${x}H`) },
+  up (n) { terminal.write(CSI + `${n}A`) },
+  down (n) { terminal.write(CSI + `${n}B`) },
+  left (n) { terminal.write(CSI + `${n}D`) },
+  right (n) { terminal.write(CSI + `${n}C`) },
+  lineUp (n) { terminal.write(ESC + 'M') },
+  linesUp (n) { terminal.write(CSI + `${n}F`) },
+  linesDown (n) { terminal.write(CSI + `${n}E`) },
+  save () { terminal.write(ESC + '7') },
+  restore () {  terminal.write(ESC + '8') },
+  getPos () {
     return new Promise((resolve, reject) => {
-      const termcodes = { cursorGetPosition: '\u001b[6n' };
-      const rawMode = process.stdin.isRaw
+      const rawMode = input.isRaw
 
-      process.stdin.setEncoding('utf8');
-      process.stdin.setRawMode(true);
+      input.setEncoding('utf8');
+      input.setRawMode(true);
 
       const readfx = function () {
-        const buf = process.stdin.read();
+        const buf = input.read();
         const str = JSON.stringify(buf); // "\u001b[9;1R"
         const regex = /\[(.*)/g;
         const xy = regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
         const pos = { y: xy[0], x: xy[1] };
-        process.stdin.setRawMode(rawMode);
+        input.setRawMode(rawMode);
         resolve(pos);
       }
 
-      process.stdin.once('readable', readfx);
-      process.stdout.write(termcodes.cursorGetPosition);
+      input.once('readable', readfx);
+      terminal.write('\u001b[6n');
     })
   }
 }
+
+export default Cursor

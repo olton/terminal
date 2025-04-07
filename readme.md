@@ -114,9 +114,9 @@ setTimeout(() => {
   Cursor.show()
 }, 2000)
 ```
+ 
 
 #### Cursor methods
-- `setTerminal(terminal)` - set the terminal instance, default `process.stdout`
 - `hide()` - hide the cursor
 - `show()` - show the cursor
 - `to(x, y)` - move the cursor to the specified position

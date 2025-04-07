@@ -13,7 +13,7 @@ const size = (term = terminal) => {
   return { columns, rows }
 }
 
-export default {
+const Screen = {
   clear: clearScreen,
   clearRight: clearToEndOfLine,
   clearLeft: clearToBeginOfLine,
@@ -22,3 +22,5 @@ export default {
   clearUp: clearScreenUp,
   size,
 }
+
+export default Screen

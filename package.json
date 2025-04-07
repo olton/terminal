@@ -1,8 +1,9 @@
 {
   "name": "@olton/terminal",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Javascript library for working with a terminal",
   "main": "dist/terminal.js",
+  "types": "types/index.d.ts",
   "type": "module",
   "files": [
     "dist"
@@ -11,7 +12,7 @@
     "clean": "shx rm -rf dist/* lib/*",
     "build": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=production node build.js",
     "dev": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=development node build.js",
-    "pub": "npm publish --access public"
+    "pub": "npm run build && npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
   },
   "keywords": [
     "terminal",
+    "console",
+    "color-output",
     "javascript",
     "library"
   ],
