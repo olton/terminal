@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/dependencies-none-green)
 
 `Terminal` - is a JavaScript library for working with terminal. 
-With `Terminal` you can create colored and styled outputs and manipulate the cursor and screen in the terminal.
+With `Terminal` you can create colored and styled outputs. Also, you can manipulate the cursor and screen in the terminal.
 
 </div>
 
@@ -34,9 +34,6 @@ npm install @olton/terminal
 import { term } from '@olton/terminal'
 
 console.log(term('Hello World!', { style: 'bold, italic', color: 'redBright' }))
-console.log(term('Hello World!', { color: '#ffffff' }))
-console.log(term('Hello World!', { style: ['bold', 'italic'], color: ['#ffffff', '#00f'] }))
-console.log(term('Hello World!', { color: '219' }))
 console.log(term('Hello World!', { gradient: '#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff' }))
 process.stdout.write(term('Hello World!', { color: 'yellowBright, #00f' }) + '\n')
 ```
@@ -52,6 +49,12 @@ You can set the text style using the `style` option. This is a comma-separated l
 - `hidden` - hidden text
 - `strike` - strikethrough text
 
+```js
+import { term } from '@olton/terminal';
+
+console.log(term('Hello World!', { style: 'bold, italic' }))
+```
+
 #### Text color
 You can set the text color using the `color` option. This is a comma-separated list of colors where first color is the text color and the second color is the background color. You can use next color values:
 
@@ -60,13 +63,32 @@ You can set the text color using the `color` option. This is a comma-separated l
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `gray`
 `blackBright`, `redBright`, `greenBright`, `yellowBright`, `blueBright`, `magentaBright`, `cyanBright`, `whiteBright`, `grayBright`
 
+```js
+import { term } from '@olton/terminal';
+
+console.log(term('Hello World!', { color: 'yellowBright, blue' }))
+```
+
 **2. Hex colors**: 
 
 `#ff0000`, `#00ff00`, `#00f`, ...
 
+```js
+import { term } from '@olton/terminal';
+
+console.log(term('Hello World!', { color: '#ff0000' }))
+```
+
 **3. Color index**: from 0 to 255.
 
 ![](colors-indexes.png)
+
+```js
+import { term } from '@olton/terminal';
+
+console.log(term('Hello World!', { color: '212, 27' }))
+```
+
 
 #### Gradient color
 You can set the gradient color using the `gradient` option. 

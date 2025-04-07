@@ -7,5 +7,5 @@ export {
   Cursor,
   Terminal, term,
   Screen,
-  Gradient, gradient
+  Gradient, gradient,
 }
