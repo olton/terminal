@@ -22,6 +22,8 @@ npm install @olton/terminal
 
 ### Terminal output
 
+![img.png](output.png)
+
 ```javascript
 import { term } from '@olton/terminal'
 
