@@ -78,18 +78,17 @@ You can use `Cursor` class to manipulate the cursor position or visibility in th
 Use fabric method `cursor` to create a new instance of `Cursor`.
 
 ```javascript
-import { term, cursor } from '@olton/terminal'
-
-const cur = cursor()
+import { term, Cursor } from '@olton/terminal'
 
 console.log(term('Hello World!'))
-cur.hide()
+Cursor.hide()
 setTimeout(() => {
-  cur.show()
+  Cursor.show()
 }, 2000)
 ```
 
 #### Cursor methods
+- `setTerminal(terminal)` - set the terminal instance, default `process.stdout`
 - `hide()` - hide the cursor
 - `show()` - show the cursor
 - `to(x, y)` - move the cursor to the specified position
@@ -128,6 +127,17 @@ setTimeout(() => {
 - `clearUp()` - clear the screen from the current line up
 - `size()` - get the current screen size.
 
+```js
+import { Screen } from '@olton/terminal'
+
+// Clear terminal screen 
+// and set cursor to the top left corner
+Screen.clear()
+```
+
+> [NOTE]
+> Methods `clearLine`, `clearLeft`, `clearRight`, `clearDown`, `clearUp` not moved a cursor.
+
 ---
 ## License
 
@@ -137,6 +147,17 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Code Standards
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+---
+
+## Support
+
+If you like this project, please consider supporting it by:
+
++ Star this repository on GitHub
++ Sponsor this project on GitHub Sponsors
++ **PayPal** to `serhii@pimenov.com.ua`.
++ **Patreon** https://www.patreon.com/metroui
 
 ---
 
