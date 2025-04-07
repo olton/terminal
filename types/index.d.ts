@@ -44,7 +44,7 @@ declare module '@olton/terminal' {
 
     // Утиліти та функції
     export function term(text: string, options?: TerminalOptions): string;
-
+    
     // Статичні класи
     export const Screen: ScreenInterface;
     export const Cursor: CursorInterface;
@@ -63,4 +63,88 @@ declare module '@olton/terminal' {
     export const NP: string;
     export const CR: string;
     export const DEL: string;
+
+    interface StyleBuilder {
+        // Основний метод для виведення стилізованого тексту
+        write(text: string): string;
+
+        // Методи для різних контекстів повідомлень
+        error(text: string): string;
+        warning(text: string): string;
+        info(text: string): string;
+        success(text: string): string;
+
+        // Методи для різних тем
+        sunset(text: string): string;
+        ocean(text: string): string;
+        matrix(text: string): string;
+        dark(text: string): string;
+        light(text: string): string;
+
+        // Динамічні властивості для стилів
+        // Базові стилі
+        bold: StyleBuilder;
+        italic: StyleBuilder;
+        underline: StyleBuilder;
+        inverse: StyleBuilder;
+        strikethrough: StyleBuilder;
+
+        // Динамічні властивості для кольорів тексту
+        black: StyleBuilder;
+        red: StyleBuilder;
+        green: StyleBuilder;
+        yellow: StyleBuilder;
+        blue: StyleBuilder;
+        magenta: StyleBuilder;
+        cyan: StyleBuilder;
+        white: StyleBuilder;
+        gray: StyleBuilder;
+        grey: StyleBuilder;
+
+        brightRed: StyleBuilder;
+        brightGreen: StyleBuilder;
+        brightYellow: StyleBuilder;
+        brightBlue: StyleBuilder;
+        brightMagenta: StyleBuilder;
+        brightCyan: StyleBuilder;
+        brightWhite: StyleBuilder;
+
+        // Фонові кольори
+        bgBlack: StyleBuilder;
+        bgRed: StyleBuilder;
+        bgGreen: StyleBuilder;
+        bgYellow: StyleBuilder;
+        bgBlue: StyleBuilder;
+        bgMagenta: StyleBuilder;
+        bgCyan: StyleBuilder;
+        bgWhite: StyleBuilder;
+        bgGray: StyleBuilder;
+        bgGrey: StyleBuilder;
+
+        bgBrightRed: StyleBuilder;
+        bgBrightGreen: StyleBuilder;
+        bgBrightYellow: StyleBuilder;
+        bgBrightBlue: StyleBuilder;
+        bgBrightMagenta: StyleBuilder;
+        bgBrightCyan: StyleBuilder;
+        bgBrightWhite: StyleBuilder;
+
+        // Градієнт
+        gradient(...colors: string[]): StyleBuilder;
+
+        // Додаткові властивості/методи можна додати відповідно до вашої реалізації
+        [key: string]: any;
+    }
+
+    export type StyleName = 'bold' | 'italic' | 'underline' | 'inverse' | 'strike' | string;
+
+    function createStyleBuilder(
+        initialStyles?: StyleName[],
+        initialColors?: [string, string] | string[] | number[],
+        initialGradientColors?: string[]
+    ): StyleBuilder;
+
+    export const termx: StyleBuilder;
+
+    export type { StyleBuilder };
 }

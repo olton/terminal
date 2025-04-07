@@ -2,6 +2,13 @@
 
 # Terminal
 
+<div align="center">
+
+![img.png](output.png)
+
+</div>
+
+
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![NPM Version](https://img.shields.io/npm/v/%40olton%2Fterminal)
 ![Static Badge](https://img.shields.io/badge/dependencies-none-green)
@@ -19,26 +26,33 @@ With `Terminal` you can create colored and styled outputs. Also, you can manipul
 npm install @olton/terminal
 ```
 
-## Usage
+## Terminal output
 
-### Terminal output
+You can create colored and styled outputs using `term` and `termx` functions.
 
-<div align="center">
+### term()
 
-![img.png](output.png)
-
-</div>
-
+With `term(msg, options)` function you can put text into terminal and styling it with options.
+Options can be set as an object in the second argument.
 
 ```javascript
-import { term } from '@olton/terminal'
+import { term, termx } from '@olton/terminal'
 
 console.log(term('Hello World!', { style: 'bold, italic', color: 'redBright' }))
-console.log(term('Hello World!', { gradient: '#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff' }))
-process.stdout.write(term('Hello World!', { color: 'yellowBright, #00f' }) + '\n')
 ```
 
-#### Text style
+### termx()
+
+With `termx` you can use chainable methods to set text style and color.
+Chain must be ended with `write(msg)` method.
+
+```javascript
+import { term, termx } from '@olton/terminal'
+
+console.log(termx.bold.italic.redBright.write('Hello World!'))
+```
+
+## Text style
 
 You can set the text style using the `style` option. This is a comma-separated list of styles. The available styles are:
 - `bold` - bold text
@@ -49,13 +63,7 @@ You can set the text style using the `style` option. This is a comma-separated l
 - `hidden` - hidden text
 - `strike` - strikethrough text
 
-```js
-import { term } from '@olton/terminal';
-
-console.log(term('Hello World!', { style: 'bold, italic' }))
-```
-
-#### Text color
+## Text color
 You can set the text color using the `color` option. This is a comma-separated list of colors where first color is the text color and the second color is the background color. You can use next color values:
 
 **1. Named colors**:
@@ -67,6 +75,7 @@ You can set the text color using the `color` option. This is a comma-separated l
 import { term } from '@olton/terminal';
 
 console.log(term('Hello World!', { color: 'yellowBright, blue' }))
+console.log(termx.yellowBright.bgBlue.write('Hello World!'))
 ```
 
 **2. Hex colors**: 
@@ -76,7 +85,8 @@ console.log(term('Hello World!', { color: 'yellowBright, blue' }))
 ```js
 import { term } from '@olton/terminal';
 
-console.log(term('Hello World!', { color: '#ff0000' }))
+console.log(term('Hello World!', { color: '#ff0000, #00ff00' }))
+console.log(termx.hex('#ff0000', '#00ff00').write('Hello World!'))
 ```
 
 **3. Color index**: from 0 to 255.
@@ -87,6 +97,7 @@ console.log(term('Hello World!', { color: '#ff0000' }))
 import { term } from '@olton/terminal';
 
 console.log(term('Hello World!', { color: '212, 27' }))
+console.log(termx.ind(212, 27).write('Hello World!'))
 ```
 
 
@@ -98,6 +109,7 @@ Colors can be in hex format.
 ```javascript
 console.log(term('Hello World!', { gradient: "#ff0000, #0000ff" }))
 console.log(term('Hello World!', { gradient: ["#f00", "#00f"] }))
+console.log(termx.gradient("#f00", "#00f").write('Hello World!'))
 ```
 
 ## Cursor

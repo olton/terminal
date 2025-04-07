@@ -59,8 +59,8 @@ export class Terminal {
         return gradientObj.colorize(this.text)
       }
     } else {
-      r.push(fg.startsWith('#') ? Colors.fromHex(fg) : isNaN(Number(fg)) ? Colors[fg] : Colors.fg(fg))
-      r.push(bg.startsWith('#') ? Colors.fromHex(bg, true) : isNaN(Number(bg)) ? Colors[Colors.toBg(bg)] : Colors.bg(bg))
+      r.push((""+fg).startsWith('#') ? Colors.fromHex(fg) : isNaN(Number(fg)) ? Colors[fg] : Colors.fg(fg))
+      r.push((""+bg).startsWith('#') ? Colors.fromHex(bg, true) : isNaN(Number(bg)) ? Colors[Colors.toBg(bg)] : Colors.bg(bg))
     }
 
     if (typeof this.text === 'string' && this.text.includes(CSI)) {
