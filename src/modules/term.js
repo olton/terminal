@@ -7,7 +7,7 @@ function str2array (str = '') {
   return str.split(',').map(c => c.trim()).filter(c => c)
 }
 
-export class Terminal {
+export class Term {
   constructor (text = '', options = {}) {
     this.text = text
     this.options = options
@@ -101,4 +101,4 @@ export class Terminal {
   }
 }
 
-export const term = (text, options) => new Terminal(text, options).toString()
+export const term = (text, options) => new Term(text, options).toString()

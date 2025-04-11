@@ -6,6 +6,7 @@ let input = process.stdin
 const Cursor = {
   show () { terminal.write(CSI + '?25h') },
   hide () { terminal.write(CSI + '?25l') },
+  home() { terminal.write(CSI + 'H') },
   to (x = 0, y = 0) { terminal.write(CSI + `${y};${x}H`) },
   up (n) { terminal.write(CSI + `${n}A`) },
   down (n) { terminal.write(CSI + `${n}B`) },
@@ -14,6 +15,7 @@ const Cursor = {
   lineUp (n) { terminal.write(ESC + 'M') },
   linesUp (n) { terminal.write(CSI + `${n}F`) },
   linesDown (n) { terminal.write(CSI + `${n}E`) },
+  col(n) {terminal.write(CSI + `${n}G`)},
   save () { terminal.write(ESC + '7') },
   restore () {  terminal.write(ESC + '8') },
   getPos () {

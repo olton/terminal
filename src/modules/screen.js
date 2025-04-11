@@ -10,7 +10,7 @@ const clearScreenDown = (term = terminal) => term.write(ESC + '[0J')
 const clearScreenUp = (term = terminal) => term.write(ESC + '[1J')
 const size = (term = terminal) => {
   const { columns, rows } = term
-  return { columns, rows }
+  return { x: columns, y: rows }
 }
 
 const Screen = {

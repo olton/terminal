@@ -1,9 +1,8 @@
 import Colors from './colors.js'
 import Styles from './style.js'
-import { term } from './terminal.js'
+import { term } from './term.js'
 
-// Допоміжна функція для створення styleBuilder з наявними стилями та кольорами
-function createStyleBuilder(
+export function createStyleBuilder(
   initialStyles = [], 
   initialColors = ['default', 'bgDefault'], 
   initialGradientColors = []

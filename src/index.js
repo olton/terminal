@@ -1,13 +1,13 @@
 import Cursor from './modules/cursor.js'
-import { Terminal, term } from './modules/terminal.js'
+import { Term, term } from './modules/term.js'
 import { Gradient, gradient } from './modules/gradient.js'
 import Screen from './modules/screen.js'
-import {termx} from "./modules/termx.js"
+import {termx, createStyleBuilder} from "./modules/termx.js"
 
 export {
   Cursor,
-  Terminal, term,
+  Term, term,
   Screen,
   Gradient, gradient,
-  termx,
+  termx, createStyleBuilder,
 }

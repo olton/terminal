@@ -1,52 +1,145 @@
 declare module '@olton/terminal' {
-    // Опції для Terminal
-    export interface TerminalOptions {
+    /**
+     * options for term
+     */
+    export interface TermOptions {
         style?: string | string[];
         color?: string | string[];
         gradient?: string | string[];
         [key: string]: any;
     }
 
-    // Клас Terminal
-    export class Terminal {
+    /**
+     * Terminal class for creating styled text
+     * Used by term function
+     */
+    export class Term {
         text: string;
-        options: TerminalOptions;
+        options: TermOptions;
 
-        constructor(text?: string, options?: TerminalOptions);
+        constructor(text?: string, options?: TermOptions);
         toString(): string;
     }
 
-    // Клас Screen
+    /**
+     * Functions for controlling terminal screen
+     */
     export interface ScreenInterface {
+        /**
+         * Clears the screen
+         */
         clear(): void;
+        /**
+         * Clears the current line
+         */
         clearLine(): void;
-        clearLineToRight(): void;
-        clearLineToLeft(): void;
-        clearToBottom(): void;
-        clearToTop(): void;
+        /**
+         * Clears the current line to the end
+         */
+        clearRight(): void;
+        /**
+         * Clears the line to the beginning
+         */
+        clearLeft(): void;
+        /**
+         * Clears the screen to the end
+         */
+        clearDown(): void;
+        /**
+         * Clears the screen to the beginning
+         */
+        clearUp(): void;
+        /**
+         * Get screen size
+         * @returns { x: number, y: number }
+         */
+        size(): { x: number; y: number };
     }
 
-    // Клас Cursor
+    /**
+     * Functions for controlling cursor
+     */
     export interface CursorInterface {
-        up(n?: number): string;
-        down(n?: number): string;
-        right(n?: number): string;
-        left(n?: number): string;
-        nextLine(n?: number): string;
-        prevLine(n?: number): string;
-        column(n?: number): string;
-        position(x?: number, y?: number): string;
+        /**
+         * Moves the cursor to the beginning of the line
+         */
+        home(): void;
+        /**
+         * Moves the cursor to the specified position
+         * @param x - The x coordinate
+         * @param y - The y coordinate
+         */
+        to(x: number, y: number): void;
+        /**
+         * Moves the cursor up on n lines
+         * @param n - The x coordinate
+         */
+        up(n?: number): void;
+        /**
+         * Moves the cursor down on n lines
+         * @param n - The x coordinate
+         */
+        down(n?: number): void;
+        /**
+         * Moves the cursor right on n columns
+         * @param n - The x coordinate
+         */
+        right(n?: number): void;
+        /**
+         * Moves the cursor left on n columns
+         * @param n - The x coordinate
+         */
+        left(n?: number): void;
+        /**
+         * Moves cursor one line up, scrolling if needed
+         */
+        lineUp(): void;
+        /**
+         * Moves cursor to the beginning of the previous line, # lines up
+         * @param n - The number of lines to move up
+         */
+        linesUp(n: number): void;
+        /**
+         * Moves cursor to the beginning of the next line, # lines down
+         * @param n - The number of lines to move down
+         */
+        linesDown(n: number): void;
+        /**
+         * Request cursor position
+         */
+        getPos(): Promise<{x?: number, y?: number}>;
+        /**
+         * Save cursor position (DEC)
+         */
         save(): string;
+        /**
+         * Restore cursor position (DEC)
+         */
         restore(): string;
+        /**
+         * Hide cursor
+         */
         hide(): string;
+        /**
+         * Show cursor
+         */
         show(): string;
     }
 
-    // Утиліти та функції
-    export function term(text: string, options?: TerminalOptions): string;
-    
-    // Статичні класи
+    /**
+     * Function to create styled text
+     * @param text
+     * @param options {TermOptions}
+     */
+    export function term(text: string, options?: TermOptions): Term;
+
+    /**
+     * Functions for controlling terminal screen
+     */
     export const Screen: ScreenInterface;
+    /**
+     * Functions for controlling cursor
+     */
     export const Cursor: CursorInterface;
 
     // Константи
@@ -64,7 +157,10 @@ declare module '@olton/terminal' {
     export const CR: string;
     export const DEL: string;
 
-    interface StyleBuilder {
+    /**
+     * Function for creating styled text with chaining interface
+     */
+    export interface StyleBuilder {
         // Основний метод для виведення стилізованого тексту
         write(text: string): string;
 
@@ -138,13 +234,14 @@ declare module '@olton/terminal' {
 
     export type StyleName = 'bold' | 'italic' | 'underline' | 'inverse' | 'strike' | string;
 
-    function createStyleBuilder(
+    export function createStyleBuilder(
         initialStyles?: StyleName[],
         initialColors?: [string, string] | string[] | number[],
         initialGradientColors?: string[]
     ): StyleBuilder;
 
+    /**
+     * Function for creating styled text with chaining interface
+     */
     export const termx: StyleBuilder;
-
-    export type { StyleBuilder };
 }

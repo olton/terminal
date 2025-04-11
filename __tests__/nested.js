@@ -1,5 +1,4 @@
-import { term } from '../src/index.js'
+import { term, termx } from '../src/index.js'
 
-console.log(
-  term(`Nested ${term('text', { color: 'red' })} with ${term('color', { color: 'green' })}`, {color: 'blue'})
-)
+console.log( term(`White ${term('red', { color: 'red' })} white ${term('green', { color: 'green' })}`, {color: 'white'}) )
+console.log( termx.white.write(`White ${termx.red.write('red')} white ${termx.green.write('green')}`) )
