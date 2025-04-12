@@ -8,8 +8,10 @@
   "files": [
     "dist",
     "types",
-    "README.md",
-    "LICENSE"
+    "readme.md",
+    "LICENSE",
+    "colors-indexes.png",
+    "output.png"
   ],
   "scripts": {
     "clean": "shx rm -rf dist/* lib/*",

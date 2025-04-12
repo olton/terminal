@@ -1,4 +1,4 @@
-import { CSI, ESC } from './esc.js'
+import { CSI, ESC, OSC } from './esc.js'
 
 let terminal = process.stdout
 let input = process.stdin
@@ -38,7 +38,13 @@ const Cursor = {
       input.once('readable', readfx);
       terminal.write('\u001b[6n');
     })
-  }
+  },
+  
+  shape: {
+    block (blink = false) { blink ?  terminal.write(CSI + '1 q') : terminal.write(CSI + '2 q') },
+    underline (blink = false) { blink ? terminal.write(CSI + '3 q') : terminal.write(CSI + '4 q') },
+    bar (blink = false) { blink ? terminal.write(CSI + '5 q') : terminal.write(CSI + '6 q') },
+  },
 }
 
 export default Cursor

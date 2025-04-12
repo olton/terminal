@@ -60,7 +60,14 @@ const Colors = {
   },
 
   fg: (index) => `38;5;${index}`,
-  bg: (index) => `48;5;${index}`
+  bg: (index) => `48;5;${index}`,
+  
+  rgb: (r, g, b) => `38;2;${r};${g};${b}`,
+  bgRgb: (r, g, b) => `48;2;${r};${g};${b}`,
+  
+  get(color, bg = false) {
+    return (""+color).startsWith('#') ? Colors.fromHex(color, bg) : isNaN(Number(color)) ? Colors[color] : Colors[bg ? 'bg' : 'fg'](color)
+  }
 }
 
 export default Colors
