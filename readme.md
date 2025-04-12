@@ -93,6 +93,8 @@ console.log(termx.hex('#ff0000', '#00ff00').write('Hello World!'))
 
 ![](colors-indexes.png)
 
+![](colors-256(8bit).png)
+
 ```js
 import { term } from '@olton/terminal';
 
