@@ -1,11 +1,18 @@
 declare module '@olton/terminal' {
+    export type ColorName = 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | 'gray' | string;
+    export type BrightColor = 'redBright' | 'greenBright' | 'yellowBright' | 'blueBright' | 'magentaBright' | 'cyanBright' | 'whiteBright' | string;
+    export type BgColorName = 'bgRed' | 'bgGreen' | 'bgYellow' | 'bgBlue' | 'bgMagenta' | 'bgCyan' | 'bgWhite' | 'bgGray' | string;
+    export type BrightBgColor = 'bgRedBright' | 'bgGreenBright' | 'bgYellowBright' | 'bgBlueBright' | 'bgMagentaBright' | 'bgCyanBright' | 'bgWhiteBright' | string;
+    export type Color = ColorName | BrightColor | BgColorName | BrightBgColor | string | number;
+    export type Style = 'bold' | 'italic' | 'underline' | 'inverse' | 'strike' | string;
+
     /**
      * options for term
      */
     export interface TermOptions {
-        style?: string | string[];
-        color?: string | string[];
-        gradient?: string | string[];
+        style?: Style[];
+        color?: Color[];
+        gradient?: string[];
         [key: string]: any;
     }
 
@@ -14,9 +21,6 @@ declare module '@olton/terminal' {
      * Used by term function
      */
     export class Term {
-        text: string;
-        options: TermOptions;
-
         constructor(text?: string, options?: TermOptions);
         toString(): string;
     }
@@ -124,6 +128,28 @@ declare module '@olton/terminal' {
          * Show cursor
          */
         show(): string;
+        
+        /**
+         * Set cursor shape
+         * @param shape - The shape of the cursor
+         */
+        shape: {
+            /**
+             * Set cursor shape to block
+             * @param blink - If true, the cursor will blink
+             */
+            block(blink: boolean): void;
+            /**
+             * Set cursor shape to line
+             * @param blink - If true, the cursor will blink
+             */
+            line(blink: boolean): void;
+            /**
+             * Set cursor shape to bar
+             * @param blink - If true, the cursor will blink
+             */
+            bar(blink: boolean): void;
+        }
     }
 
     /**
@@ -156,87 +182,204 @@ declare module '@olton/terminal' {
     export const NP: string;
     export const CR: string;
     export const DEL: string;
+    export const ST: string;
 
     /**
      * Function for creating styled text with chaining interface
      */
     export interface StyleBuilder {
-        // Основний метод для виведення стилізованого тексту
+        /**
+         * Write styled text to the terminal
+         * @param text
+         */
         write(text: string): string;
 
-        // Методи для різних контекстів повідомлень
+        /**
+         * Write error text to the terminal
+         * @param text
+         */
         error(text: string): string;
+        /**
+         * Write warning text to the terminal
+         * @param text
+         */
         warning(text: string): string;
+        /**
+         * Write info text to the terminal
+         * @param text
+         */        
         info(text: string): string;
+        /**
+         * Write success text to the terminal
+         * @param text
+         */
         success(text: string): string;
 
-        // Методи для різних тем
-        sunset(text: string): string;
-        ocean(text: string): string;
-        matrix(text: string): string;
-        dark(text: string): string;
-        light(text: string): string;
-
-        // Динамічні властивості для стилів
-        // Базові стилі
+        /**
+         * Set bold text
+         */
         bold: StyleBuilder;
+        /**
+         * Set italic text
+         */
         italic: StyleBuilder;
+        /**
+         * Set underline text
+         */
         underline: StyleBuilder;
+        /**
+         * Set inverse text
+         */
         inverse: StyleBuilder;
-        strikethrough: StyleBuilder;
+        /**
+         * Set strikethrough text
+         */
+        strike: StyleBuilder;
 
-        // Динамічні властивості для кольорів тексту
+        /**
+         * Set black text
+         */
         black: StyleBuilder;
+        /**
+         * Set red text
+         */
         red: StyleBuilder;
+        /**
+         * Set green text
+         */
         green: StyleBuilder;
+        /**
+         * Set yellow text
+         */
         yellow: StyleBuilder;
+        /**
+         * Set blue text
+         */
         blue: StyleBuilder;
+        /**
+         * Set magenta text
+         */
         magenta: StyleBuilder;
+        /**
+         * Set cyan text
+         */
         cyan: StyleBuilder;
+        /**
+         * Set white text
+         */
         white: StyleBuilder;
+        /**
+         * Set gray text
+         */
         gray: StyleBuilder;
-        grey: StyleBuilder;
 
-        brightRed: StyleBuilder;
-        brightGreen: StyleBuilder;
-        brightYellow: StyleBuilder;
-        brightBlue: StyleBuilder;
-        brightMagenta: StyleBuilder;
-        brightCyan: StyleBuilder;
-        brightWhite: StyleBuilder;
+        /**
+         * Set bright red text
+         */
+        redBright: StyleBuilder;
+        /**
+         * Set bright green text
+         */
+        greenBright: StyleBuilder;
+        /**
+         * Set bright yellow text
+         */
+        yellowBright: StyleBuilder;
+        /**
+         * Set bright blue text
+         */
+        blueBright: StyleBuilder;
+        /**
+         * Set bright magenta text
+         */
+        magentaBright: StyleBuilder;
+        /**
+         * Set bright cyan text
+         */
+        cyanBright: StyleBuilder;
+        /**
+         * Set bright white text
+         */
+        whiteBright: StyleBuilder;
 
-        // Фонові кольори
+        /**
+         * Set bg black text
+         */
         bgBlack: StyleBuilder;
+        /**
+         * Set bg red text
+         */
         bgRed: StyleBuilder;
+        /**
+         * Set bg green text
+         */
         bgGreen: StyleBuilder;
+        /**
+         * Set bg yellow text
+         */
         bgYellow: StyleBuilder;
+        /**
+         * Set bg blue text
+         */
         bgBlue: StyleBuilder;
+        /**
+         * Set bg magenta text
+         */
         bgMagenta: StyleBuilder;
+        /**
+         * Set bg cyan text
+         */
         bgCyan: StyleBuilder;
+        /**
+         * Set bg white text
+         */
         bgWhite: StyleBuilder;
+        /**
+         * Set bg gray text
+         */
         bgGray: StyleBuilder;
-        bgGrey: StyleBuilder;
 
-        bgBrightRed: StyleBuilder;
-        bgBrightGreen: StyleBuilder;
-        bgBrightYellow: StyleBuilder;
-        bgBrightBlue: StyleBuilder;
-        bgBrightMagenta: StyleBuilder;
-        bgBrightCyan: StyleBuilder;
-        bgBrightWhite: StyleBuilder;
+        /**
+         * Set bg bright red text
+         */
+        bgRedBright: StyleBuilder;
+        /**
+         * Set bg bright green text
+         */
+        bgGreenBright: StyleBuilder;
+        /**
+         * Set bg bright yellow text
+         */
+        bgYellowBright: StyleBuilder;
+        /**
+         * Set bg bright blue text
+         */
+        bgBlueBright: StyleBuilder;
+        /**
+         * Set bg bright magenta text
+         */
+        bgMagentaBright: StyleBuilder;
+        /**
+         * Set bg bright cyan text
+         */
+        bgCyanBright: StyleBuilder;
+        /**
+         * Set bg bright white text
+         */
+        bgWhiteBright: StyleBuilder;
 
-        // Градієнт
+        /**
+         * Set gradient text color
+         * @param colors
+         */
         gradient(...colors: string[]): StyleBuilder;
 
-        // Додаткові властивості/методи можна додати відповідно до вашої реалізації
         [key: string]: any;
     }
-
-    export type StyleName = 'bold' | 'italic' | 'underline' | 'inverse' | 'strike' | string;
-
+    
     export function createStyleBuilder(
-        initialStyles?: StyleName[],
-        initialColors?: [string, string] | string[] | number[],
+        initialStyles?: Style[],
+        initialColors?: Color[],
         initialGradientColors?: string[]
     ): StyleBuilder;
 
@@ -244,4 +387,81 @@ declare module '@olton/terminal' {
      * Function for creating styled text with chaining interface
      */
     export const termx: StyleBuilder;
+    
+    export interface Themes {
+        currentTheme: { color: Color[], style: Style[] };
+        
+        /**
+         * Set default color theme
+         * @param name - The name of the theme
+         */
+        default: void;
+        /**
+         * Set sunset color theme
+         * @param name - The name of the theme
+         */
+        sunset: void;
+        /**
+         * Set ocean color theme
+         * @param name - The name of the theme
+         */
+        ocean: void;
+        /**
+         * Set forest color theme
+         * @param name - The name of the theme
+         */
+        forest: void;
+        /**
+         * Set desert color theme
+         * @param name - The name of the theme
+         */
+        desert: void;
+        /**
+         * Set twilight color theme
+         * @param name - The name of the theme
+         */
+        twilight: void;
+        /**
+         * Set night color theme
+         * @param name - The name of the theme
+         */
+        matrix: void;
+        /**
+         * Set error color theme
+         * @param name - The name of the theme
+         */
+        error: void;
+        /**
+         * Set warning color theme
+         * @param name - The name of the theme
+         */
+        warning: void;
+        /**
+         * Set info color theme
+         * @param name - The name of the theme
+         */
+        info: void;
+        /**
+         * Set success color theme
+         * @param name - The name of the theme
+         */
+        success: void;
+        
+        /**
+         * Set custom color theme
+         * @param name - The name of the theme
+         * @param changeConsoleColor - Change console color
+         */
+        set(name: string, changeConsoleColor: boolean): void;
+        /**
+         * Reset color theme to default
+         * @returns { name: string, changeConsoleColor: boolean }
+         */
+        reset(): void;
+        /**
+         * Add new color theme
+         * @returns { name: string, changeConsoleColor: boolean }
+         */
+        add(name: string, {color, style}): void;
+    }
 }

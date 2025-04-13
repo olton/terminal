@@ -13,8 +13,7 @@
 ![NPM Version](https://img.shields.io/npm/v/%40olton%2Fterminal)
 ![Static Badge](https://img.shields.io/badge/dependencies-none-green)
 
-`Terminal` - is a JavaScript library for working with terminal. 
-With `Terminal` you can create colored and styled outputs. Also, you can manipulate the cursor and screen in the terminal.
+`Terminal` - a JavaScript library for styling text output in a terminal, and screen and cursor control.
 
 </div>
 
@@ -114,6 +113,63 @@ console.log(term('Hello World!', { gradient: ["#f00", "#00f"] }))
 console.log(termx.gradient("#f00", "#00f").write('Hello World!'))
 ```
 
+### Themes
+You can use predefined themes to style your text or add your one theme. Predefined themes are:
+- `default` - default theme
+- `sunset` - sunset theme
+- `ocean` - ocean theme
+- `forest` - forest theme
+- `desert` - desert theme
+- `twilight` - twilight theme
+- `matrix` - matrix theme
+- `error` - error theme
+- `success` - success theme
+- `warning` - warning theme
+- `info` - info theme
+
+#### Using themes with `term()`
+
+```javascript
+term('Hello World!', { theme: 'sunset' })
+```
+
+#### Using themes with `termx()`
+
+```javascript
+termx.sunset.write('Hello World!')
+```
+
+#### Global setup
+
+You can set the default theme for all text using `Themes.set()` method.
+
+```javascript
+import { Themes } from '@olton/terminal'
+
+Themes.set('sunset')
+```
+
+#### Reset theme
+You can reset the theme to default using `Themes.reset()` method.
+
+```javascript
+import { Themes } from '@olton/terminal'
+
+Themes.reset()
+```
+
+#### Adding custom theme
+You can add your own theme using `Themes.add()` method.
+
+```javascript
+import { Themes } from '@olton/terminal'
+
+Themes.add('myTheme', {
+  color: ['red', 'blue'],
+  style: ['bold', 'italic']
+})
+```
+
 ## Cursor
 
 You can use `Cursor` class to manipulate the cursor position or visibility in the terminal.
@@ -144,6 +200,26 @@ setTimeout(() => {
 - `linesUp(n)` - move the cursor up `n` lines and save the position
 - `linesDown(n)` - move the cursor down `n` lines and save the position
 - `getPos()` - get the current cursor position. This method returns a promise with the position object `{ x, y }`
+- `shape` - set the cursor shape. This property contains methods to change cursor shape. Argument `blick` can be `false` or `true` and sets blinking cursor mode. The available shapes are:
+  - `block(blink)` - block cursor
+  - `line(blink)` - underline cursor
+  - `bar(blink)` - bar cursor
+
+
+```js
+// Get cursor position
+import { Cursor } from '@olton/terminal'
+
+const pos = await Cursor.getPos()
+console.log(`Cursor position is: column: ${pos.x}, row: ${pos.y}`)
+```
+
+```js
+// Set cursor shape
+import { Cursor } from '@olton/terminal'
+
+Cursor.shape.block(true) // set block cursor with blinking
+```
 
 ## Screen
 

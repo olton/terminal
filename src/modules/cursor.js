@@ -18,6 +18,7 @@ const Cursor = {
   col(n) {terminal.write(CSI + `${n}G`)},
   save () { terminal.write(ESC + '7') },
   restore () {  terminal.write(ESC + '8') },
+  
   getPos () {
     return new Promise((resolve, reject) => {
       const rawMode = input.isRaw
@@ -42,7 +43,7 @@ const Cursor = {
   
   shape: {
     block (blink = false) { blink ?  terminal.write(CSI + '1 q') : terminal.write(CSI + '2 q') },
-    underline (blink = false) { blink ? terminal.write(CSI + '3 q') : terminal.write(CSI + '4 q') },
+    line (blink = false) { blink ? terminal.write(CSI + '3 q') : terminal.write(CSI + '4 q') },
     bar (blink = false) { blink ? terminal.write(CSI + '5 q') : terminal.write(CSI + '6 q') },
   },
 }

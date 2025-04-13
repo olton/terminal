@@ -1,7 +1,7 @@
 import {Cursor} from '../src/index.js'
 
 console.log('Hello World!')
-;['block','underline','bar'].forEach((shape, index) => {
+;['block','line','bar'].forEach((shape, index) => {
   setTimeout(() => {
     console.log(`Cursor shape: ${shape}`)
     Cursor.shape[shape]()
