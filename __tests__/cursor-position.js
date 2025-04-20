@@ -7,4 +7,4 @@ console.log('Hello World!')
 console.log('Hello World!')
 Cursor.restore()
 console.log('Restored position!')
-
+console.log(await Cursor.getPos())

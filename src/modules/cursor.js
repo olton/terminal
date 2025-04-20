@@ -24,7 +24,7 @@ const Cursor = {
       const rawMode = input.isRaw
 
       input.setEncoding('utf8');
-      input.setRawMode(true);
+      input.setRawMode && input.setRawMode(true);
 
       const readfx = function () {
         const buf = input.read();
@@ -32,7 +32,7 @@ const Cursor = {
         const regex = /\[(.*)/g;
         const xy = regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
         const pos = { y: xy[0], x: xy[1] };
-        input.setRawMode(rawMode);
+        input.setRawMode && input.setRawMode(rawMode);
         resolve(pos);
       }
 
