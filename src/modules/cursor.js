@@ -12,7 +12,7 @@ const Cursor = {
   down (n) { terminal.write(CSI + `${n}B`) },
   left (n) { terminal.write(CSI + `${n}D`) },
   right (n) { terminal.write(CSI + `${n}C`) },
-  lineUp (n) { terminal.write(ESC + 'M') },
+  lineUp () { terminal.write(ESC + 'M') },
   linesUp (n) { terminal.write(CSI + `${n}F`) },
   linesDown (n) { terminal.write(CSI + `${n}E`) },
   col(n) {terminal.write(CSI + `${n}G`)},
@@ -30,7 +30,7 @@ const Cursor = {
         const buf = input.read();
         const str = JSON.stringify(buf); // "\u001b[9;1R"
         const regex = /\[(.*)/g;
-        const xy = regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
+        const xy = !str ? [0, 0] : regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
         const pos = { y: xy[0], x: xy[1] };
         input.setRawMode && input.setRawMode(rawMode);
         resolve(pos);
