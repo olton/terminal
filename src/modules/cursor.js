@@ -30,7 +30,8 @@ const Cursor = {
         const buf = input.read();
         const str = JSON.stringify(buf); // "\u001b[9;1R"
         const regex = /\[(.*)/g;
-        const xy = !str ? [0, 0] : regex.exec(str)[0].replace(/\[|R"/g, '').split(';');
+        const str_r = regex.exec(str)
+        const xy = !str_r ? [0, 0] : str_r[0].replace(/\[|R"/g, '').split(';');
         const pos = { y: xy[0], x: xy[1] };
         input.setRawMode && input.setRawMode(rawMode);
         resolve(pos);

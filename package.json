@@ -1,6 +1,6 @@
 {
   "name": "@olton/terminal",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Javascript library for working with a terminal",
   "main": "dist/terminal.js",
   "types": "types/index.d.ts",
