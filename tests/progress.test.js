@@ -1,6 +1,5 @@
 import { describe, expect, it, mock } from '@olton/latte'
-import Progress, { progress } from '../src/core/progress.js'
-import ProgressOptions from '../src/options/progress.js'
+import { Progress, progress, ProgressOptions } from '../src/index.js'
 
 describe('Progress class', () => {
     it('створює екземпляр класу Progress з правильними налаштуваннями за замовчуванням', () => {

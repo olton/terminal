@@ -17,7 +17,8 @@
     "clean": "shx rm -rf dist/* lib/*",
     "build": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=production node build.js",
     "dev": "npm run clean && cross-env NODE_NO_WARNINGS=1 MODE=development node build.js",
-    "pub": "npm run build && npm publish --access public"
+    "pub": "npm run build && npm publish --access public",
+    "test": "latte"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,7 @@
   ],
   "devDependencies": {
     "@olton/esbuild-plugin-progress": "^0.3.0",
-    "@olton/latte": "^0.16.0",
+    "@olton/latte": "^0.16.2",
     "cross-env": "^7.0.3",
     "esbuild": "^0.25.4",
     "esbuild-plugin-replace": "^1.4.0",

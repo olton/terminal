@@ -1,7 +1,5 @@
 import { describe, it, expect, mock, beforeEach, afterEach } from "@olton/latte"
-import { term, Cursor, Screen } from '@olton/terminal'
-import Activity, { activity } from '../src/core/activity.js'
-import ActivityOptions from '../src/options/activity.js'
+import { term, Cursor, Screen, Activity, activity, ActivityOptions } from '../src/index.js'
 
 describe('Activity class', () => {
     it('створює екземпляр класу Activity з правильними налаштуваннями за замовчуванням', () => {

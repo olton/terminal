@@ -1,7 +1,7 @@
 import { describe, expect, it, mock, spy } from '@olton/latte'
-import defaultRender from '../src/renders/default.js'
-import barRender from '../src/renders/bar.js'
-import RenderOptions from '../src/options/render.js'
+import defaultRender from '../src/progress-bar/renders/default.js'
+import barRender from '../src/progress-bar/renders/bar.js'
+import RenderOptions from '../src/progress-bar/options/render.js'
 
 describe('Render functions', () => {
     it('defaultRender викликає потрібні методи терміналу', () => {

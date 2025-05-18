@@ -1,4 +1,4 @@
-import repeat from '../src/helpers/repeat.js'
+import repeat from '../src/progress-bar/helpers/repeat.js'
 import { describe, expect, it } from '@olton/latte'
 
 describe('Helpers functions', () => {
