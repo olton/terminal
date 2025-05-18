@@ -19,7 +19,7 @@ const options = {
     entryPoints: ['./src/index.js'],
     outfile: './dist/terminal.js',
     bundle: true,
-    minify: production,
+    minify: false,
     sourcemap: false,
     format: 'esm',
     banner: {
